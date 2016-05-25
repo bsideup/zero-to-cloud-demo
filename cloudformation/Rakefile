@@ -1,0 +1,19 @@
+require 'cfndsl/rake_task'
+
+directory "outputs"
+
+CfnDsl::RakeTask.new do |t|
+  t.cfndsl_opts = {
+    verbose: true,
+    pretty: true,
+    files: [
+        { filename: 'templates/fooStack.rb', output: 'outputs/foo-stack.json' },
+        { filename: 'templates/barStack.rb', output: 'outputs/bar-stack.json' },
+        { filename: 'templates/project.rb', output: 'outputs/project-stack.json' },
+        { filename: 'templates/ebServiceResource.rb', output: 'outputs/eb-service.json' }
+    ]
+  }
+end
+
+task :generate => "outputs"
+task :default => [:generate]
